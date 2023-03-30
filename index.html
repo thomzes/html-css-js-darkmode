@@ -12,9 +12,10 @@
     <div class="container">
         <nav>
             <a id="home" onclick="reRender()">HOME</a>
-            <a id="mode" onclick="darkMode()">MODE</a>
+            <a id="darkmode" onclick="darkMode()">DARK MODE</a>
+            <a id="redmode" onclick="redMode()">RED MODE</a>
         </nav>
-        <h1>DarkMode</h1>
+        <h1 id="content">Content</h1>
         <p id="info" class="info"></p>
     </div>
 
@@ -25,35 +26,79 @@
     <!-- initializing function script -->
     <script>
         let body = document.body;
+        let content = document.getElementById('content');
         let info = document.getElementById('info');
-        let mode = document.getElementById('mode');
+        let modeDark = document.getElementById('darkmode');
+        let modeRed = document.getElementById('redmode');
         let home = document.getElementById('home');
         
-        const darkLimit = 5;
-        let darkCounter = 0;
-        let darkRemainingLeft;
+        const modeLimit = 5;
+        let modeCounter = 0;
+        let modeRemainingLeft;
 
         function darkMode() {
-            if(darkRemainingLeft == 1) {
+            if(modeRemainingLeft == 1) {
                 info.textContent = "JATAH DARKMODE ANDA SUDAH HABIS!";
-                mode.style.display = "none";
+                modeDark.style.display = "none";
+                modeRed.style.display = "none";
                 home.textContent = "RESTART";
                 // console.log('jatah dark mode anda sudah habis');
                 return;
             }
 
-            darkCounter += 1;
-            darkRemainingLeft = darkLimit - darkCounter;
+            modeCounter += 1;
+            modeRemainingLeft = modeLimit - modeCounter;
 
             // render ke info element (id)
-            info.textContent = `Darkmode dipakai ${darkCounter}x, tersisa ${darkRemainingLeft}`;
+            info.textContent = `Darkmode dipakai ${modeCounter}x, tersisa ${modeRemainingLeft}`;
 
+            if(body.classList.toggle('dark')) {
+                modeDark.textContent = "LIGHT MODE";
+                modeRed.style.display = "none";
+                content.textContent = "Dark Mode Active!"
 
+            }else {
+                modeDark.textContent = "DARK MODE";
+                modeRed.style.display = "none";
+                content.textContent = "Dark Mode InActive!"
 
-            // console.log('darkmode di klik sebanyak : ', darkCounter);
-            // console.log('kesempatan anda : ', darkRemainingLeft);
-            body.classList.toggle("dark");
+            }
+
+            // console.log('darkmode di klik sebanyak : ', modeCounter);
+            // console.log('kesempatan anda : ', modeRemainingLeft);
+            // body.classList.toggle("dark");
+
         }
+
+        function redMode() {
+            if(modeRemainingLeft == 1) {
+                info.textContent = "JATAH REDMODE ANDA SUDAH HABIS!";
+                modeDark.style.display = "none";
+                modeRed.style.display = "none";
+                home.textContent = "RESTART";
+                // console.log('jatah dark mode anda sudah habis');
+                return;
+            }
+
+            modeCounter += 1;
+            modeRemainingLeft = modeLimit - modeCounter;
+
+            // render ke info element (id)
+            info.textContent = `Redmode dipakai ${modeCounter}x, tersisa ${modeRemainingLeft}`;
+
+            if(body.classList.toggle('red')) {
+                modeRed.textContent = "LIGHT MODE";
+                modeDark.style.display = "none";
+                content.textContent = "Red Mode Active!"
+
+            }else {
+                modeRed.textContent = "RED MODE";
+                modeDark.style.display = "none";
+                content.textContent = "Red Mode InActive!"
+
+            }
+        }
+
 
         function reRender() {
             location.reload();
